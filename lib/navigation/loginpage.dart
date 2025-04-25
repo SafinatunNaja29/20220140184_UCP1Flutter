@@ -61,4 +61,19 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 child: Text('Masuk'),
               ),
-              
+              TextButton( /*tombol text yang mengarah ke halaman lain*/
+                onPressed: () {
+                  Navigator.push( /*menambahkan ke halaman baru ke atas stack(bisa kembali ke halaman login)*/
+                    context,
+                    MaterialPageRoute(builder: (context) => RegisterPage()),
+                  );
+                },
+                child: Text('Belum memiliki akun ? SIlahkan Daftar disini! !'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
