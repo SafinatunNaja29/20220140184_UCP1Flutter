@@ -30,3 +30,13 @@ class _RegisterpageState extends State<Registerpage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('DAFTAR AKUN BARU'),
+              TextFormField(
+                controller: namaController,
+                decoration: const InputDecoration(labelText: 'Nama Lengkap'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your name';
+                  }
+                  return null;
+                },
+              )],
