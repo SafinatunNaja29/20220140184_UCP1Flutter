@@ -19,3 +19,14 @@ class _RegisterpageState extends State<Registerpage> {
   void initState() {
     super.initState();
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(  
+      body: Form( 
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(  
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('DAFTAR AKUN BARU'),
