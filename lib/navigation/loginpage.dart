@@ -13,14 +13,17 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController(); 
   final TextEditingController passwordController = TextEditingController();
   
+  bool obscurePassword = true;
+
   @override
   void initState() {  
     super.initState();
   }
 
+  final _formKey = GlobalKey<FormState>(); 
+
   @override
   Widget build(BuildContext context) { 
-    final _formKey = GlobalKey<FormState>(); 
     return Scaffold(  
       body: Form( 
         key: _formKey,
@@ -29,46 +32,100 @@ class _LoginPageState extends State<LoginPage> {
           child: Column( 
             mainAxisAlignment: MainAxisAlignment.center,  
             children: [
-              TextFormField(  /*field untuk input email*/
-                controller: emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
-                validator: (value) {  /*validasi saat tombol login ditekan*/
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  return null;
-                },
+              const SizedBox(height: 50),
+              const Text(
+                'SELAMAT DATANG',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              TextFormField(  
-                controller: passwordController,
-                decoration: const InputDecoration(labelText: 'Password'),
-                obscureText: true, 
+              const SizedBox(height: 40),
+
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Email'),
+              ),
+              const SizedBox(height: 8),
+              TextFormField(
+                controller: emailController,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.email),
+                  labelText: 'Email',
+                  border: OutlineInputBorder(),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
+                    return 'Email tidak boleh kosong';
                   }
                   return null;
                 },
               ),
+              const SizedBox(height: 20),
+
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Password'),
+              ),
+              const SizedBox(height: 8),
+              TextFormField(
+                controller: passwordController,
+                obscureText: obscurePassword,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.lock),
+                  labelText: 'Password',
+                  border: const OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      obscurePassword ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        obscurePassword = !obscurePassword;
+                      });
+                    },
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Password tidak boleh kosong';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 30),
+
               ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {  
-                    Navigator.pushReplacement(  
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),  
+                      MaterialPageRoute(builder: (context) => const HomePage()),
                     );
                   }
                 },
-                child: Text('Masuk'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 16),
+                  backgroundColor: Color.fromARGB(255, 253, 194, 242),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: const Text('Masuk', style: TextStyle(fontSize: 16)),
               ),
-              TextButton( /*tombol text yang mengarah ke halaman lain*/
+              const SizedBox(height: 10),
+
+              TextButton(
                 onPressed: () {
-                  Navigator.push( /*menambahkan ke halaman baru ke atas stack(bisa kembali ke halaman login)*/
+                  Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => RegisterPage()),
+                    MaterialPageRoute(builder: (context) => const RegisterPage()),
                   );
                 },
-                child: Text('Belum memiliki akun ? SIlahkan Daftar disini! !'),
+                child: const Text(
+                  'Belum memiliki akun? Silakan daftar di sini!',
+                  style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                ),
               ),
             ],
           ),
