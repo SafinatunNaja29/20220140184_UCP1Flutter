@@ -33,10 +33,12 @@ class _RegisterpageState extends State<RegisterPage> {
           child: Form( 
             key: _formKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 40),
-
+                Image.asset(
+                'assets/image/logo.png', 
+                height: 80,      
+                ),
                 const Center(
                   child: Text(
                     'DAFTAR AKUN BARU',
