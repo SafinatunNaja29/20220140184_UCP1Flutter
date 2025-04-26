@@ -33,8 +33,15 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,  
             children: [
               const SizedBox(height: 50),
+
+              Image.asset(
+                'assets/image/logo.png', 
+                height: 100,      
+              ),
+              
+              const SizedBox(height: 20),
               const Text(
-                'SELAMAT DATANG',
+                'SELAMAT DATANG KEMBALI',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
