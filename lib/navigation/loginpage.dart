@@ -36,18 +36,16 @@ class _LoginPageState extends State<LoginPage> {
 
               Image.asset(
                 'assets/image/logo.png', 
-                height: 200,      
+                height: 150,      
               ),
-              
-              const SizedBox(height: 10),
+
               const Text(
                 'SELAMAT DATANG KEMBALI',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 40),
 
               const Align(
                 alignment: Alignment.centerLeft,
@@ -68,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                   return null;
                 },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
 
               const Align(
                 alignment: Alignment.centerLeft,
