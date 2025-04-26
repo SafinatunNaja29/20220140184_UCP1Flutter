@@ -104,24 +104,30 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 30),
 
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
-                    );
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 16),
-                  backgroundColor: Color.fromARGB(255, 253, 194, 242),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+               SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => const HomePage()),
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        backgroundColor: Color.fromARGB(255, 75, 139, 241),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      child: const Text(
+                        'Masuk',
+                        style: TextStyle(fontSize: 16, color: Colors.black),
+                      ),
+                    ),
                   ),
-                ),
-                child: const Text('Masuk', style: TextStyle(fontSize: 16)),
-              ),
               const SizedBox(height: 10),
 
               TextButton(
@@ -132,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                   );
                 },
                 child: const Text(
-                  'Belum memiliki akun? Silakan daftar di sini!',
+                  'Belum memiliki akun? Silakan Daftar di sini!',
                   style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                 ),
               ),
