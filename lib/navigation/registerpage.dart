@@ -36,12 +36,19 @@ class _RegisterpageState extends State<RegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 40),
+
+                const Center(
+                  child: Text(
+                    'DAFTAR AKUN BARU',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(height: 30),
               ],
             ),
           ),
         ),
       ),
-    ),
-  );
+    );
   }
 }
