@@ -39,6 +39,7 @@ class _RegisterpageState extends State<RegisterPage> {
                 'assets/image/logo.png', 
                 height: 80,      
                 ),
+                const SizedBox(height: 10),
                 const Center(
                   child: Text(
                     'DAFTAR AKUN BARU',

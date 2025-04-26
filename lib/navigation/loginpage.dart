@@ -39,11 +39,12 @@ class _LoginPageState extends State<LoginPage> {
                 'assets/image/logo.png', 
                 height: 90,      
               ),
+              const SizedBox(height: 10),
 
               const Text(
                 'SELAMAT DATANG KEMBALI',
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 23,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -138,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       const TextSpan(text: 'Belum memiliki akun? '),
                       TextSpan(
-                        text: 'Daftar di sini',
+                        text: 'Daftar disini!',
                         style: const TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
