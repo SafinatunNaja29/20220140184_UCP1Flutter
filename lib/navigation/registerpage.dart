@@ -8,6 +8,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterpageState extends State<RegisterPage> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController namaController = TextEditingController();
   final TextEditingController emailController = TextEditingController(); 
   final TextEditingController noHpController = TextEditingController();
@@ -16,6 +17,7 @@ class _RegisterpageState extends State<RegisterPage> {
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+  bool _useEmail = true;
 
   @override
   void initState() {
@@ -24,7 +26,6 @@ class _RegisterpageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
