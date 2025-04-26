@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                 controller: emailController,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.email),
-                  labelText: 'Email',
+                  hintText: 'Email',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                   ),
@@ -80,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: obscurePassword,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.lock),
-                  labelText: 'Password',
+                  hintText: 'Password',
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                   ),
