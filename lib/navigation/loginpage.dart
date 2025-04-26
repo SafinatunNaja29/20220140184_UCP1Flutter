@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:ucp1/navigation/homepage.dart';
 import 'package:ucp1/navigation/registerpage.dart';
 
@@ -130,18 +131,30 @@ class _LoginPageState extends State<LoginPage> {
                   ),
               const SizedBox(height: 10),
 
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const RegisterPage()),
-                  );
-                },
-                child: const Text(
-                  'Belum memiliki akun? Silakan Daftar di sini!',
-                  style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+              Center(
+                child: RichText(
+                  text: TextSpan(
+                    style: const TextStyle(color: Colors.black),
+                    children: [
+                      const TextSpan(text: 'Belum memiliki akun? '),
+                      TextSpan(
+                        text: 'Daftar di sini',
+                        style: const TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const RegisterPage()),
+                            );
+                          },
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+              )
             ],
           ),
         ),
