@@ -36,10 +36,10 @@ class _LoginPageState extends State<LoginPage> {
 
               Image.asset(
                 'assets/image/logo.png', 
-                height: 100,      
+                height: 200,      
               ),
               
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               const Text(
                 'SELAMAT DATANG KEMBALI',
                 style: TextStyle(
