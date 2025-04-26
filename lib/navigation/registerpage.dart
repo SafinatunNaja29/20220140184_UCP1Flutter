@@ -47,6 +47,27 @@ class _RegisterpageState extends State<RegisterPage> {
                   ),
                 ),
                 const SizedBox(height: 30),
+
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('Nama Lengkap'),
+                ),                
+                const SizedBox(height: 8),
+                TextFormField(
+                  controller: namaController,
+                  decoration: const InputDecoration(
+                    hintText: 'Nama Lengkap',
+                    prefixIcon: Icon(Icons.person),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16)),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) return 'Nama tidak boleh kosong';
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
               ],
             ),
           ),
