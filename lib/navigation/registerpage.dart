@@ -30,23 +30,18 @@ class _RegisterpageState extends State<RegisterPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Form(
+          child: Form( 
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 40),
-                const Text(
-                  'Nama Lengkap',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8),
-                
               ],
             ),
           ),
         ),
       ),
-    );
+    ),
+  );
   }
 }
