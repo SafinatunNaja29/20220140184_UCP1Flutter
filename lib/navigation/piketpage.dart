@@ -106,3 +106,28 @@ void _addTugasPiket() {
               ),
             ),
             const SizedBox(height: 24),
+
+            const Text(
+              'Tugas Piket',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: _tugasController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Masukkan tugas piket',
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: _addTugasPiket,
+                  child: const Text('Tambah'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
