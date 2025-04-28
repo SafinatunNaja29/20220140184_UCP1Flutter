@@ -80,3 +80,26 @@ class DetailBarangPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildDetailRow(String label, String value) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label,
+              style: const TextStyle(fontSize: 16),
+            ),
+            Text(
+              value,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        const Divider(thickness: 1, color: Colors.grey),
+        const SizedBox(height: 8),
+      ],
+    );
+  }
+}
