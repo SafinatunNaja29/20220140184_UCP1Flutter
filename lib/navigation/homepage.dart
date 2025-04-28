@@ -50,12 +50,21 @@ class _HomepageState extends State<HomePage> {
                       ),
                     ],
                   ),
+                  IconButton(
+                    icon: const Icon(Icons.logout, color: Colors.black),
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/login');
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
                 ],
                 ),
-          ],
+          
         )
         ),
-    ),
     );
+    
   }
 }
