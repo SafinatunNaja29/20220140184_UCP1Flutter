@@ -89,3 +89,26 @@ class DetailPelangganPage extends StatelessWidget {
       ),
     );
   }
+
+   Widget _buildReadonlyTextField(String label, String value, {int maxLines = 1}) {
+    return TextField(
+      controller: TextEditingController(text: value),
+      readOnly: true,
+      maxLines: maxLines,
+      decoration: InputDecoration(
+        labelText: label,
+        filled: true,
+        fillColor: Colors.white,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: primaryColor),
+        ),
+      ),
+      style: const TextStyle(color: Colors.black87),
+    );
+  }
+}
