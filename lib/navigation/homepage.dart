@@ -80,6 +80,30 @@ class _HomepageState extends State<HomePage> {
                   mainAxisSpacing: 16,
                   childAspectRatio: 1.2,
                 ),
+                children: [
+                  // Tombol Data Piket
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const PiketPage()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepOrange,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.assignment_turned_in, size: 40, color: Colors.white),
+                        SizedBox(height: 10),
+                        Text('Data Piket', style: TextStyle(fontSize: 16, color: Colors.white)),
+                      ],
+                    ),
+                  ),
               ),
             ],
           ),
