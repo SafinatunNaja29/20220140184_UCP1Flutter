@@ -69,5 +69,29 @@ class _PelangganPageState extends State<PelangganPage> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildLabel('Nama Customer'),
+              _buildTextField(_namaController, 'Nama Customer'),
+              const SizedBox(height: 16),
+
+              _buildLabel('Email'),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildTextField(_emailController, 'Email'),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildTextField(_noHpController, 'No Hp'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
 
   }
