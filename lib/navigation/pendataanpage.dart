@@ -44,3 +44,25 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
       );
     }
   }
+
+  @override
+  void dispose() {
+    _tanggalController.dispose();
+    _jumlahBarangController.dispose();
+    _hargaSatuanController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _selectDate() async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+    if (picked != null) {
+      setState(() {
+        _tanggalController.text = '${picked.day}/${picked.month}/${picked.year}';
+      });
+    }
+  }
