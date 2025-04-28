@@ -90,7 +90,7 @@ class _HomepageState extends State<HomePage> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepOrange,
+                      backgroundColor: const Color.fromARGB(255, 75, 139, 241),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -101,6 +101,30 @@ class _HomepageState extends State<HomePage> {
                         Icon(Icons.assignment_turned_in, size: 40, color: Colors.white),
                         SizedBox(height: 10),
                         Text('Data Piket', style: TextStyle(fontSize: 16, color: Colors.white)),
+                      ],
+                    ),
+                  ),
+
+                   // Tombol Data Pelanggan
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const PelangganPage()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 75, 139, 241),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.group_add, size: 40, color: Colors.white),
+                        SizedBox(height: 10),
+                        Text('Data Pelanggan', style: TextStyle(fontSize: 16, color: Colors.white)),
                       ],
                     ),
                   ),
