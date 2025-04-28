@@ -137,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                   text: TextSpan(
                     style: const TextStyle(color: Colors.black),
                     children: [
-                      const TextSpan(text: 'Belum memiliki akun? '),
+                      const TextSpan(text: 'Belum memiliki akun? Silahkan '),
                       TextSpan(
                         text: 'Daftar disini!',
                         style: const TextStyle(
