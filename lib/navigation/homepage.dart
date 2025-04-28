@@ -59,6 +59,19 @@ class _HomepageState extends State<HomePage> {
                 ],
               ),
               const SizedBox(height: 20),
+
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Container(
+                  color: Colors.white,
+                  child: Stack(
+                    children: [
+                      Image.asset(
+                        'assets/image/promo.png', 
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        height: 150,
+                      ),
                 ],
                 ),
           
