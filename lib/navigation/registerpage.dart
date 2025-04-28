@@ -83,7 +83,7 @@ class _RegisterpageState extends State<RegisterPage> {
                           TextFormField(
                             controller: emailController,
                             decoration: const InputDecoration(
-                              hintText: 'Masukkan email',
+                              hintText: 'Email',
                               prefixIcon: Icon(Icons.email),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -100,8 +100,37 @@ class _RegisterpageState extends State<RegisterPage> {
                       ),
                     ),
                     const SizedBox(width: 20),
-                  ]
-                 )
+                     Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('No HP'),
+                          ),                           
+                          const SizedBox(height: 8),
+                          TextFormField(
+                            controller: noHpController,
+                            decoration: const InputDecoration(
+                              hintText: 'Nomor HP',
+                              prefixIcon: Icon(Icons.phone),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(16)),
+                              ),
+                            ),
+                            keyboardType: TextInputType.phone,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) return 'Nomor HP tidak boleh kosong';
+                              return null;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 20),           
               ],
             ),
           ),
