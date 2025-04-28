@@ -11,16 +11,9 @@ class _PiketPageState extends State<PiketPage> {
   final List<String> _tugasPiketList = ['Menyapu']; 
   final TextEditingController _tugasController = TextEditingController();
   DateTime? _selectedDate;
-  String _namaAnggota = "Admin";
+  String _emailUser = "admin@example.com"; 
 
-  @override
-  void dispose() {
-    _tugasController.dispose();
-    super.dispose();
-  }
-}
-
-void _addTugasPiket() {
+  void _addTugasPiket() {
     if (_tugasController.text.isNotEmpty) {
       setState(() {
         _tugasPiketList.add(_tugasController.text);
@@ -43,13 +36,10 @@ void _addTugasPiket() {
     }
   }
 
-  void _navigateToDetail(String tugas) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DetailPiketPage(tugas: tugas),
-      ),
-    );
+  @override
+  void dispose() {
+    _tugasController.dispose();
+    super.dispose();
   }
 
   @override
@@ -70,7 +60,7 @@ void _addTugasPiket() {
             const SizedBox(height: 8),
             TextFormField(
               readOnly: true,
-              initialValue: _namaAnggota,
+              initialValue: _emailUser,  
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
               ),
@@ -137,7 +127,7 @@ void _addTugasPiket() {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            Expanded(
+            Flexible(
               child: _tugasPiketList.isEmpty
                   ? const Center(
                       child: Text('Belum ada Data'),
@@ -151,7 +141,7 @@ void _addTugasPiket() {
                             leading: const Icon(Icons.assignment, color: Colors.blue),
                             title: Text(_tugasPiketList[index]),
                             trailing: const Icon(Icons.chevron_right),
-                            onTap: () => _navigateToDetail(_tugasPiketList[index]),
+                            onTap: () {},  // Navigasi bisa diaktifkan kembali setelah pengujian
                           ),
                         );
                       },
