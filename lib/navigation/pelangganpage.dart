@@ -29,4 +29,18 @@ class _PelangganPageState extends State<PelangganPage> {
       _provinsiController.clear();
       _kodePosController.clear();
     }
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DetailPelangganPage(
+            namaCust: _namaController.text,
+          ),
+        ),
+      );
+    }
+  }
+  
   }
