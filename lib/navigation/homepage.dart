@@ -128,7 +128,32 @@ class _HomepageState extends State<HomePage> {
                       ],
                     ),
                   ),
-              ),
+                  GridTile(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const PendataanPage()),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 75, 139, 241),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.receipt_long, size: 40, color: Colors.white),
+                          SizedBox(height: 10),
+                          Text('Barang Masuk/Keluar', style: TextStyle(fontSize: 16, color: Colors.white)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
