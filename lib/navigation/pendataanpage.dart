@@ -112,9 +112,9 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
                   fillColor: Colors.white,
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
                 ),
-                items: listBarang.map((barang) {
-                  return DropdownMenuItem(
-                    value: barang['nama'],
+                items: listBarang.map<DropdownMenuItem<String>>((barang) {
+                  return DropdownMenuItem<String>(
+                    value: barang['nama'] as String,
                     child: Text('${barang['nama']}'),
                   );
                 }).toList(),
