@@ -196,6 +196,27 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
                 ],
               ),
               const SizedBox(height: 32),
+  
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: primaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  onPressed: _submitForm,
+                  child: const Text('Submit', style: TextStyle(fontSize: 16)),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
