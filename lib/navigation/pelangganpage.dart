@@ -42,5 +42,16 @@ class _PelangganPageState extends State<PelangganPage> {
       );
     }
   }
-  
+
+  @override
+    void dispose() {
+      _namaController.dispose();
+      _emailController.dispose();
+      _noHpController.dispose();
+      _alamatController.dispose();
+      _provinsiController.dispose();
+      _kodePosController.dispose();
+      super.dispose();
+    }
+
   }
