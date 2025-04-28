@@ -15,10 +15,25 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
   
   bool obscurePassword = true;
+  AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
 
-  @override
-  void initState() {  
-    super.initState();
+    @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void _validateAndLogin() {
+    setState(() {
+      _autoValidateMode = AutovalidateMode.always;
+    });
+    if (_formKey.currentState!.validate()) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    }
   }
 
   final _formKey = GlobalKey<FormState>(); 
@@ -70,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                   return null;
                 },
                 onChanged: (value) {
-                  if (_formKey.currentState != null) {
+                  if (_autoValidateMode == AutovalidateMode.always) {
                     _formKey.currentState!.validate();
                   }
                 },
@@ -109,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                   return null;
                 },
                 onChanged: (value) {
-                  if (_formKey.currentState != null) {
+                  if (_autoValidateMode == AutovalidateMode.always) {
                     _formKey.currentState!.validate();
                   }
                 },
@@ -119,17 +134,10 @@ class _LoginPageState extends State<LoginPage> {
                SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => const HomePage()),
-                          );
-                        }
-                      },
+                      onPressed: _validateAndLogin,
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor: Color.fromARGB(255, 75, 139, 241),
+                        backgroundColor: const Color.fromARGB(255, 75, 139, 241),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),

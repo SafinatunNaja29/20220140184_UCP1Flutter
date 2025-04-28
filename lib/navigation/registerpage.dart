@@ -240,9 +240,16 @@ class _RegisterpageState extends State<RegisterPage> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Pendaftaran berhasil!')),
-                        );
+                        if (passwordController.text != konfirmpasswordController.text) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Password tidak sama')),
+                          );
+                        } else {
+                          // Kalau semua valid dan password cocok
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Pendaftaran berhasil!')),
+                          );
+                        }
                       }
                     },
                     style: ElevatedButton.styleFrom(
