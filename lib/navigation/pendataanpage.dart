@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:ucp1/navigation/detailbarang.dart'; 
 
 class PendataanBarangPage extends StatefulWidget {
@@ -27,6 +28,19 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
     {'nama': 'Mouse', 'harga': 200000},
     {'nama': 'Monitor', 'harga': 2500000},
   ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFFEF7F5),
+      appBar: AppBar(
+        backgroundColor: primaryColor,
+        title: const Text('Pendataan Barang', style: TextStyle(color: Colors.white)),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
