@@ -31,6 +31,23 @@ class _HomepageState extends State<HomePage> {
                         backgroundImage: AssetImage('assets/image/profile.jpg'), 
                       ),
                       const SizedBox(width: 12),
+                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Selamat Datang',
+                            style: TextStyle(fontSize: 16, color: Colors.black),
+                          ),
+                          Text(
+                            'Admin',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
