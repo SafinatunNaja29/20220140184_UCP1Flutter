@@ -21,9 +21,23 @@ class _HomepageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
+                Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const CircleAvatar(
+                        radius: 24,
+                        backgroundImage: AssetImage('assets/image/profile.jpg'), 
+                      ),
+                      const SizedBox(width: 12),
+                    ],
+                  ),
+                ],
+                ),
           ],
-        )),
+        )
+        ),
     ),
     );
   }
