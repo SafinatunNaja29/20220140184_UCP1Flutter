@@ -102,6 +102,43 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
               ),
               const SizedBox(height: 16),
 
+              _buildLabel('Jenis Barang'),
+              DropdownButtonFormField<String>(
+                value: _jenisBarang,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  hintText: 'Jenis Barang',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                ),
+                items: listBarang.map((barang) {
+                  return DropdownMenuItem(
+                    value: barang['nama'],
+                    child: Text('${barang['nama']}'),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _jenisBarang = value;
+
+
+                    final selectedBarang = listBarang.firstWhere(
+                      (barang) => barang['nama'] == value,
+                      orElse: () => {'harga': ''},
+                    );
+                    _hargaSatuanController.text = selectedBarang['harga'].toString();
+                  });
+                },
+                validator: (value) {
+                  if (value == null) {
+                    return 'Pilih jenis barang';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       Navigator.push(
