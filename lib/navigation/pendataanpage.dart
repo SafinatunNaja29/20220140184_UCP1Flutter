@@ -218,6 +218,30 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
     );
   }
 
+  Widget _buildLabel(String text) {
+    return Text(
+      text,
+      style: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  void _pickDate() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null) {
+      setState(() {
+        _tanggalController.text = DateFormat('EEEE, d MMMM yyyy', 'id_ID').format(picked);
+      });
+    }
+  }
+
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       Navigator.push(
@@ -234,4 +258,4 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
       );
     }
   }
-
+}
