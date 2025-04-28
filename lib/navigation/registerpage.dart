@@ -212,7 +212,32 @@ class _RegisterpageState extends State<RegisterPage> {
                   ],
                 ),
 
-                const SizedBox(height: 30),         
+                const SizedBox(height: 30),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Pendaftaran berhasil!')),
+                        );
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        backgroundColor: Color.fromARGB(255, 75, 139, 241),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      child: const Text(
+                        'Daftar',
+                        style: TextStyle(fontSize: 16, color: Colors.black),
+                      )
+                  ),
+                ),
+                const SizedBox(height: 20),         
               ],
             ),
           ),
