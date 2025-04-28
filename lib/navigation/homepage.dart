@@ -62,22 +62,29 @@ class _HomepageState extends State<HomePage> {
 
               ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: Container(
-                  color: Colors.white,
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                        'assets/image/promo.png', 
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                        height: 150,
-                      ),
-                ],
+                child: Image.asset(
+                  'assets/image/promo.png', 
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  height: 150,
                 ),
-          
-        )
+              ),
+
+              const SizedBox(height: 30),
+              GridView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 1.2,
+                ),
+              ),
+            ],
+          ),
         ),
+      ),
     );
-    
   }
 }
