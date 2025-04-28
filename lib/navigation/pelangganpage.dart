@@ -127,4 +127,29 @@ class _PelangganPageState extends State<PelangganPage> {
                 ),
               ),
               const SizedBox(height: 16),
+
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: primaryColor),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  onPressed: _resetForm,
+                  child: Text(
+                    'Reset',
+                    style: TextStyle(color: primaryColor, fontSize: 16),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+  
   }
