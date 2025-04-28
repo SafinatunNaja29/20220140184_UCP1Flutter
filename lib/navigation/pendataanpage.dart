@@ -72,6 +72,36 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
               ),
               const SizedBox(height: 16),
 
+              _buildLabel('Jenis Transaksi'),
+              DropdownButtonFormField<String>(
+                value: _jenisTransaksi,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  hintText: 'Jenis Transaksi',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                ),
+                items: ['Barang Masuk', 'Barang Keluar'].map((transaksi) {
+                  return DropdownMenuItem(
+                    value: transaksi,
+                    child: Text(transaksi),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _jenisTransaksi = value;
+                  });
+                },
+                validator: (value) {
+                  if (value == null) {
+                    return 'Pilih jenis transaksi';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       Navigator.push(
