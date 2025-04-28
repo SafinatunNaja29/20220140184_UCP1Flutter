@@ -130,7 +130,46 @@ class _RegisterpageState extends State<RegisterPage> {
                   ],
                 ),
 
-                const SizedBox(height: 20),           
+                const SizedBox(height: 20),
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('Password'),
+                          ),
+                          const SizedBox(height: 8),
+                          TextFormField(
+                            controller: passwordController,
+                            obscureText: _obscurePassword,
+                            decoration: InputDecoration(
+                              hintText: 'Password',
+                              prefixIcon: const Icon(Icons.lock),
+                              border: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(16)),
+
+                              ),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                                  color: Colors.grey,
+                                ),
+                                onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) return 'Password tidak boleh kosong';
+                              return null;
+                            },
+                          ),
+                        ],
+                      ),
+                    ), 
+                ):         
               ],
             ),
           ),
