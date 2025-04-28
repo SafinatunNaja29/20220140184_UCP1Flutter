@@ -32,3 +32,38 @@ class DetailPelangganPage extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
       ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            const CircleAvatar(
+              radius: 50,
+              backgroundImage: AssetImage('assets/images/profile.png'), // Gambar profile
+            ),
+            const SizedBox(height: 20),
+            Text(
+              namaCust,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              emailCust,
+              style: const TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+            const SizedBox(height: 2),
+            Text(
+              noHpCust,
+              style: const TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+            const SizedBox(height: 20),
+            _buildReadonlyTextField('Alamat', alamatCust, maxLines: 3),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(child: _buildReadonlyTextField('Provinsi', provinsiCust)),
+                const SizedBox(width: 10),
+                Expanded(child: _buildReadonlyTextField('Kode Pos', kodePosCust)),
+              ],
+            ),
+            const SizedBox(height: 30),
