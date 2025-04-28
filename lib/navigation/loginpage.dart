@@ -69,6 +69,11 @@ class _LoginPageState extends State<LoginPage> {
                   }
                   return null;
                 },
+                onChanged: (value) {
+                  if (_formKey.currentState != null) {
+                    _formKey.currentState!.validate();
+                  }
+                },
               ),
               const SizedBox(height: 10),
 
@@ -102,6 +107,11 @@ class _LoginPageState extends State<LoginPage> {
                     return 'Password tidak boleh kosong';
                   }
                   return null;
+                },
+                onChanged: (value) {
+                  if (_formKey.currentState != null) {
+                    _formKey.currentState!.validate();
+                  }
                 },
               ),
               const SizedBox(height: 30),

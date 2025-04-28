@@ -18,7 +18,6 @@ class _RegisterpageState extends State<RegisterPage> {
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
-  bool _useEmail = true;
 
   @override
   void initState() {
@@ -67,6 +66,11 @@ class _RegisterpageState extends State<RegisterPage> {
                     if (value == null || value.isEmpty) return 'Nama tidak boleh kosong';
                     return null;
                   },
+                  onChanged: (value) {
+                  if (_formKey.currentState != null) {
+                    _formKey.currentState!.validate();
+                  }
+                },
                 ),
                 const SizedBox(height: 10),
 
@@ -93,8 +97,12 @@ class _RegisterpageState extends State<RegisterPage> {
                             keyboardType: TextInputType.emailAddress,
                             validator: (value) {
                               if (value == null || value.isEmpty) return 'Email tidak boleh kosong';
-                              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) return 'Format email tidak valid';
                               return null;
+                            },
+                            onChanged: (value) {
+                              if (_formKey.currentState != null) {
+                                _formKey.currentState!.validate();
+                              }
                             },
                           ),
                         ],
@@ -123,6 +131,11 @@ class _RegisterpageState extends State<RegisterPage> {
                             validator: (value) {
                               if (value == null || value.isEmpty) return 'Nomor HP tidak boleh kosong';
                               return null;
+                            },
+                            onChanged: (value) {
+                              if (_formKey.currentState != null) {
+                                _formKey.currentState!.validate();
+                              }
                             },
                           ),
                         ],
@@ -166,6 +179,11 @@ class _RegisterpageState extends State<RegisterPage> {
                               if (value == null || value.isEmpty) return 'Password tidak boleh kosong';
                               return null;
                             },
+                            onChanged: (value) {
+                              if (_formKey.currentState != null) {
+                                _formKey.currentState!.validate();
+                              }
+                            },
                           ),
                         ],
                       ),
@@ -201,10 +219,12 @@ class _RegisterpageState extends State<RegisterPage> {
                               if (value == null || value.isEmpty) {
                                 return 'Konfirmasi password tidak boleh kosong';
                               }
-                              if (value != passwordController.text) {
-                                return 'Password tidak sama';
-                              }
                               return null;
+                            },
+                            onChanged: (value) {
+                              if (_formKey.currentState != null) {
+                                _formKey.currentState!.validate();
+                              }
                             },
                           ),
                         ],
