@@ -17,4 +17,7 @@ class _PelangganPageState extends State<PelangganPage> {
   final TextEditingController _alamatController = TextEditingController();
   final TextEditingController _provinsiController = TextEditingController();
   final TextEditingController _kodePosController = TextEditingController();
+
+  final Color primaryColor = const Color.fromARGB(255, 75, 139, 241);
+
   }
