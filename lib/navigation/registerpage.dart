@@ -18,10 +18,39 @@ class _RegisterpageState extends State<RegisterPage> {
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+  AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    namaController.dispose();
+    emailController.dispose();
+    noHpController.dispose();
+    passwordController.dispose();
+    konfirmpasswordController.dispose();
+    super.dispose();
+  }
+
+   void _validateAndRegister() {
+    if (_formKey.currentState!.validate()) {
+      if (passwordController.text != konfirmpasswordController.text) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Password tidak sama')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Pendaftaran berhasil!')),
+        );
+      }
+    } else {
+      setState(() {
+        _autoValidateMode = AutovalidateMode.always; 
+      });
+    }
   }
 
   @override
@@ -32,6 +61,7 @@ class _RegisterpageState extends State<RegisterPage> {
           padding: const EdgeInsets.all(16.0),
           child: Form( 
             key: _formKey,
+            autovalidateMode : _autoValidateMode,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -66,11 +96,6 @@ class _RegisterpageState extends State<RegisterPage> {
                     if (value == null || value.isEmpty) return 'Nama tidak boleh kosong';
                     return null;
                   },
-                  onChanged: (value) {
-                  if (_formKey.currentState != null) {
-                    _formKey.currentState!.validate();
-                  }
-                },
                 ),
                 const SizedBox(height: 10),
 
@@ -99,11 +124,6 @@ class _RegisterpageState extends State<RegisterPage> {
                               if (value == null || value.isEmpty) return 'Email tidak boleh kosong';
                               return null;
                             },
-                            onChanged: (value) {
-                              if (_formKey.currentState != null) {
-                                _formKey.currentState!.validate();
-                              }
-                            },
                           ),
                         ],
                       ),
@@ -131,11 +151,6 @@ class _RegisterpageState extends State<RegisterPage> {
                             validator: (value) {
                               if (value == null || value.isEmpty) return 'Nomor HP tidak boleh kosong';
                               return null;
-                            },
-                            onChanged: (value) {
-                              if (_formKey.currentState != null) {
-                                _formKey.currentState!.validate();
-                              }
                             },
                           ),
                         ],
@@ -179,11 +194,6 @@ class _RegisterpageState extends State<RegisterPage> {
                               if (value == null || value.isEmpty) return 'Password tidak boleh kosong';
                               return null;
                             },
-                            onChanged: (value) {
-                              if (_formKey.currentState != null) {
-                                _formKey.currentState!.validate();
-                              }
-                            },
                           ),
                         ],
                       ),
@@ -221,11 +231,6 @@ class _RegisterpageState extends State<RegisterPage> {
                               }
                               return null;
                             },
-                            onChanged: (value) {
-                              if (_formKey.currentState != null) {
-                                _formKey.currentState!.validate();
-                              }
-                            },
                           ),
                         ],
                       ),
@@ -235,34 +240,21 @@ class _RegisterpageState extends State<RegisterPage> {
 
                 const SizedBox(height: 30),
 
-                SizedBox(
+               SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        if (passwordController.text != konfirmpasswordController.text) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Password tidak sama')),
-                          );
-                        } else {
-                          // Kalau semua valid dan password cocok
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Pendaftaran berhasil!')),
-                          );
-                        }
-                      }
-                    },
+                    onPressed: _validateAndRegister,
                     style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor: Color.fromARGB(255, 75, 139, 241),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      backgroundColor: const Color.fromARGB(255, 75, 139, 241),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                      child: const Text(
-                        'Daftar',
-                        style: TextStyle(fontSize: 16, color: Colors.black),
-                      )
+                    ),
+                    child: const Text(
+                      'Daftar',
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
