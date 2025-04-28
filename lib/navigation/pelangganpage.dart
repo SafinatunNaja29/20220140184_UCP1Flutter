@@ -20,4 +20,13 @@ class _PelangganPageState extends State<PelangganPage> {
 
   final Color primaryColor = const Color.fromARGB(255, 75, 139, 241);
 
+  void _resetForm() {
+      _formKey.currentState?.reset();
+      _namaController.clear();
+      _emailController.clear();
+      _noHpController.clear();
+      _alamatController.clear();
+      _provinsiController.clear();
+      _kodePosController.clear();
+    }
   }
