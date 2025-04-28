@@ -94,4 +94,21 @@ class _PelangganPageState extends State<PelangganPage> {
               ),
               const SizedBox(height: 16),
 
+              _buildLabel('Alamat'),
+              _buildTextField(_alamatController, 'Alamat', maxLines: 3),
+              const SizedBox(height: 16),
+
+              _buildLabel('Provinsi'),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildTextField(_provinsiController, 'Provinsi'),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildTextField(_kodePosController, 'Kode Pos'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
   }
