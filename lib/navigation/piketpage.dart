@@ -131,3 +131,34 @@ void _addTugasPiket() {
               ],
             ),
             const SizedBox(height: 24),
+
+            const Text(
+              'Daftar Tugas Piket',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: _tugasPiketList.isEmpty
+                  ? const Center(
+                      child: Text('Belum ada Data'),
+                    )
+                  : ListView.builder(
+                      itemCount: _tugasPiketList.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          margin: const EdgeInsets.symmetric(vertical: 4),
+                          child: ListTile(
+                            leading: const Icon(Icons.assignment, color: Colors.blue),
+                            title: Text(_tugasPiketList[index]),
+                            trailing: const Icon(Icons.chevron_right),
+                            onTap: () => _navigateToDetail(_tugasPiketList[index]),
+                          ),
+                        );
+                      },
+                    ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
