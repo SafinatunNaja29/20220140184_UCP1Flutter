@@ -37,6 +37,11 @@ class _PelangganPageState extends State<PelangganPage> {
         MaterialPageRoute(
           builder: (context) => DetailPelangganPage(
             namaCust: _namaController.text,
+            emailCust: _emailController.text,
+            noHpCust: _noHpController.text,
+            alamatCust: _alamatController.text,
+            provinsiCust: _provinsiController.text,
+            kodePosCust: _kodePosController.text,
           ),
         ),
       );
