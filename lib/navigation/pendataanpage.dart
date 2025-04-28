@@ -41,6 +41,36 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildLabel('Tanggal Transaksi'),
+              TextFormField(
+                controller: _tanggalController,
+                readOnly: true,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  hintText: 'Tanggal Transaksi',
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.calendar_today),
+                    onPressed: _pickDate,
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Tanggal transaksi tidak boleh kosong';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
@@ -59,24 +89,3 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
     }
   }
 
-  @override
-  void dispose() {
-    _tanggalController.dispose();
-    _jumlahBarangController.dispose();
-    _hargaSatuanController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _selectDate() async {
-    DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-    );
-    if (picked != null) {
-      setState(() {
-        _tanggalController.text = '${picked.day}/${picked.month}/${picked.year}';
-      });
-    }
-  }
