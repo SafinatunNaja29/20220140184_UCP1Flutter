@@ -54,4 +54,20 @@ class _PelangganPageState extends State<PelangganPage> {
       super.dispose();
     }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFFEF7F5),
+      appBar: AppBar(
+        backgroundColor: primaryColor,
+        title: const Text(
+          'Data Pelanggan',
+          style: TextStyle(color: Colors.white),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+
   }
