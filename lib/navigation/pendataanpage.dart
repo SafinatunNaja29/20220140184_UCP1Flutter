@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:ucp1/navigation/detailbarang.dart'; 
+import 'package:ucp1/navigation/detailbarang.dart';
 
 class PendataanBarangPage extends StatefulWidget {
   const PendataanBarangPage({super.key});
@@ -12,12 +12,25 @@ class PendataanBarangPage extends StatefulWidget {
 class _PendataanBarangPageState extends State<PendataanBarangPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _tanggalController = TextEditingController();
   final TextEditingController _jumlahBarangController = TextEditingController();
   final TextEditingController _hargaSatuanController = TextEditingController();
 
   String? _jenisTransaksi;
   String? _jenisBarang;
+  DateTime? _selectedDate;
+  bool _isTanggalEmpty = false;
+
+  @override
+  void dispose() {
+    _jumlahBarangController.dispose();
+    _hargaSatuanController.dispose();
+    super.dispose();
+  }
+  @override
+  void initState() {
+    super.initState();
+    _hargaSatuanController.text = 'Rp. ';
+  }
 
   final Color primaryColor = const Color.fromARGB(255, 75, 139, 241);
 
@@ -32,10 +45,14 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFEF7F5),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: const Text('Pendataan Barang', style: TextStyle(color: Colors.white)),
+        centerTitle: true, 
+        title: const Text(
+          'Pendataan Barang',
+          style: TextStyle(color: Colors.white),
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
@@ -49,40 +66,63 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildLabel('Tanggal Transaksi'),
-              TextFormField(
-                controller: _tanggalController,
-                readOnly: true,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  hintText: 'Tanggal Transaksi',
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.calendar_today),
-                    onPressed: _pickDate,
+              InkWell(
+                onTap: _pickDate,
+                child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.calendar_month_outlined, color: Colors.grey),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          _selectedDate != null
+                            ? '${_getDayName(_selectedDate!.weekday)}, ${_selectedDate!.day} ${_getMonthName(_selectedDate!.month)} ${_selectedDate!.year}'
+                            : 'Pilih Tanggal',
+                          style: TextStyle(
+                            color: _selectedDate != null ? Colors.black : Colors.grey,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Tanggal transaksi tidak boleh kosong';
-                  }
-                  return null;
-                },
               ),
+              if (_isTanggalEmpty)
+                const Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    'Tanggal transaksi tidak boleh kosong',
+                    style: TextStyle(color: Colors.red, fontSize: 12),
+                  ),
+                ),
+
               const SizedBox(height: 16),
 
               _buildLabel('Jenis Transaksi'),
               DropdownButtonFormField<String>(
                 value: _jenisTransaksi,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
-                  hintText: 'Jenis Transaksi',
+                  hintText: 'Pilih Jenis Transaksi',
                   filled: true,
                   fillColor: Colors.white,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(color: primaryColor),
+                  ),
                 ),
-                items: ['Barang Masuk', 'Barang Keluar'].map((transaksi) {
+                items: listTransaksi.map((transaksi) {
                   return DropdownMenuItem(
                     value: transaksi,
                     child: Text(transaksi),
@@ -92,6 +132,7 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
                   setState(() {
                     _jenisTransaksi = value;
                   });
+                  _formKey.currentState!.validate(); 
                 },
                 validator: (value) {
                   if (value == null) {
@@ -105,30 +146,37 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
               _buildLabel('Jenis Barang'),
               DropdownButtonFormField<String>(
                 value: _jenisBarang,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
-                  hintText: 'Jenis Barang',
+                  hintText: 'Pilih Jenis Barang',
                   filled: true,
                   fillColor: Colors.white,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(color: primaryColor),
+                  ),
                 ),
-                items: listBarang.map<DropdownMenuItem<String>>((barang) {
+                items: listBarang.map((barang) {
                   return DropdownMenuItem<String>(
-                    value: barang['nama'] as String,
-                    child: Text('${barang['nama']}'),
+                    value: barang['nama'],
+                    child: Text(barang['nama']),
                   );
                 }).toList(),
                 onChanged: (value) {
                   setState(() {
                     _jenisBarang = value;
-
-
                     final selectedBarang = listBarang.firstWhere(
                       (barang) => barang['nama'] == value,
                       orElse: () => {'harga': ''},
                     );
-                    _hargaSatuanController.text = selectedBarang['harga'].toString();
+                    _hargaSatuanController.text = 'Rp. ${selectedBarang['harga']}';
                   });
+                  _formKey.currentState!.validate();
                 },
                 validator: (value) {
                   if (value == null) {
@@ -148,13 +196,23 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
                         _buildLabel('Jumlah Barang'),
                         TextFormField(
                           controller: _jumlahBarangController,
-                          keyboardType: TextInputType.number,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          onChanged: (value) {
+                            _formKey.currentState!.validate(); 
+                          },
                           decoration: InputDecoration(
                             hintText: 'Jumlah Barang',
                             filled: true,
                             fillColor: Colors.white,
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(color: primaryColor),
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -175,20 +233,21 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
                         TextFormField(
                           controller: _hargaSatuanController,
                           readOnly: true,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           decoration: InputDecoration(
-                            prefixText: 'Rp. ',
                             hintText: 'Harga Satuan',
                             filled: true,
                             fillColor: Colors.white,
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(color: primaryColor),
+                            ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Harga satuan tidak boleh kosong';
-                            }
-                            return null;
-                          },
                         ),
                       ],
                     ),
@@ -196,7 +255,7 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
                 ],
               ),
               const SizedBox(height: 32),
-  
+
               SizedBox(
                 width: double.infinity,
                 height: 50,
@@ -204,11 +263,14 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(16),
                     ),
                   ),
                   onPressed: _submitForm,
-                  child: const Text('Submit', style: TextStyle(fontSize: 16)),
+                  child: const Text(
+                    'Submit',
+                    style: TextStyle(color: Colors.white, fontSize: 16), 
+                  ),
                 ),
               ),
             ],
@@ -219,11 +281,13 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
   }
 
   Widget _buildLabel(String text) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 16,
+        ),
       ),
     );
   }
@@ -234,28 +298,66 @@ class _PendataanBarangPageState extends State<PendataanBarangPage> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
+      locale: const Locale('id', 'ID'),
     );
     if (picked != null) {
       setState(() {
-        _tanggalController.text = DateFormat('EEEE, d MMMM yyyy', 'id_ID').format(picked);
+        _selectedDate = picked;
+        _isTanggalEmpty = false;
       });
     }
   }
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DetailBarangPage(
-            tanggal: _tanggalController.text,
-            jenisTransaksi: _jenisTransaksi!,
-            jenisBarang: _jenisBarang!,
-            jumlahBarang: _jumlahBarangController.text,
-            hargaSatuan: _hargaSatuanController.text,
-          ),
-        ),
-      );
-    }
+
+ String _getDayName(int weekday) {
+  switch (weekday) {
+    case 1: return 'Senin';
+    case 2: return 'Selasa';
+    case 3: return 'Rabu';
+    case 4: return 'Kamis';
+    case 5: return 'Jumat';
+    case 6: return 'Sabtu';
+    case 7: return 'Minggu';
+    default: return '';
   }
+}
+
+String _getMonthName(int month) {
+  switch (month) {
+    case 1: return 'Januari';
+    case 2: return 'Februari';
+    case 3: return 'Maret';
+    case 4: return 'April';
+    case 5: return 'Mei';
+    case 6: return 'Juni';
+    case 7: return 'Juli';
+    case 8: return 'Agustus';
+    case 9: return 'September';
+    case 10: return 'Oktober';
+    case 11: return 'November';
+    case 12: return 'Desember';
+    default: return '';
+  }
+}
+
+ void _submitForm() {
+  setState(() {
+    _isTanggalEmpty = _selectedDate == null;
+  });
+
+  if (_formKey.currentState!.validate() && !_isTanggalEmpty) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetailBarangPage(
+          tanggal: '${_getDayName(_selectedDate!.weekday)}, ${_selectedDate!.day} ${_getMonthName(_selectedDate!.month)} ${_selectedDate!.year}',
+          jenisTransaksi: _jenisTransaksi!,
+          jenisBarang: _jenisBarang!,
+          jumlahBarang: _jumlahBarangController.text,
+          hargaSatuan: _hargaSatuanController.text,
+        ),
+      ),
+    );
+  }
+}
 }

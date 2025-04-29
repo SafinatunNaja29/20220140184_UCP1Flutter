@@ -19,6 +19,8 @@ class _PelangganPageState extends State<PelangganPage> {
   final TextEditingController _kodePosController = TextEditingController();
 
   final Color primaryColor = const Color.fromARGB(255, 75, 139, 241);
+  bool _autoValidate = false;
+
 
   void _resetForm() {
       _formKey.currentState?.reset();
@@ -31,22 +33,30 @@ class _PelangganPageState extends State<PelangganPage> {
     }
 
   void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DetailPelangganPage(
-            namaCust: _namaController.text,
-            emailCust: _emailController.text,
-            noHpCust: _noHpController.text,
-            alamatCust: _alamatController.text,
-            provinsiCust: _provinsiController.text,
-            kodePosCust: _kodePosController.text,
-          ),
+  if (_formKey.currentState!.validate()) {
+    setState(() {
+      _autoValidate = false;
+    });
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetailPelangganPage(
+          namaCust: _namaController.text,
+          emailCust: _emailController.text,
+          noHpCust: _noHpController.text,
+          alamatCust: _alamatController.text,
+          provinsiCust: _provinsiController.text,
+          kodePosCust: _kodePosController.text,
         ),
-      );
-    }
+      ),
+    );
+  } else {
+    setState(() {
+      _autoValidate = true;
+    });
   }
+}
+
 
   @override
     void dispose() {
@@ -62,9 +72,10 @@ class _PelangganPageState extends State<PelangganPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFEF7F5),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: primaryColor,
+        centerTitle: true,
         title: const Text(
           'Data Pelanggan',
           style: TextStyle(color: Colors.white),
@@ -78,6 +89,7 @@ class _PelangganPageState extends State<PelangganPage> {
         padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
+          autovalidateMode: _autoValidate ? AutovalidateMode.always : AutovalidateMode.disabled,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -85,33 +97,55 @@ class _PelangganPageState extends State<PelangganPage> {
               _buildTextField(_namaController, 'Nama Customer'),
               const SizedBox(height: 16),
 
-              _buildLabel('Email'),
               Row(
                 children: [
                   Expanded(
-                    child: _buildTextField(_emailController, 'Email'),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildLabel('Email'),
+                        _buildTextField(_emailController, 'Email'),
+                      ],
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: _buildTextField(_noHpController, 'No Hp'),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildLabel('No Hp'),
+                        _buildTextField(_noHpController, 'No Hp'),
+                      ],
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 16),
 
               _buildLabel('Alamat'),
-              _buildTextField(_alamatController, 'Alamat', maxLines: 3),
+              _buildTextField(_alamatController, 'Alamat'),
               const SizedBox(height: 16),
 
-              _buildLabel('Provinsi'),
               Row(
                 children: [
                   Expanded(
-                    child: _buildTextField(_provinsiController, 'Provinsi'),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildLabel('Provinsi'),
+                        _buildTextField(_provinsiController, 'Provinsi'),
+                      ],
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: _buildTextField(_kodePosController, 'Kode Pos'),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildLabel('Kode Pos'),
+                        _buildTextField(_kodePosController, 'Kode Pos'),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -128,7 +162,7 @@ class _PelangganPageState extends State<PelangganPage> {
                     ),
                   ),
                   onPressed: _submitForm,
-                  child: const Text('Simpan', style: TextStyle(fontSize: 16)),
+                  child: const Text('Simpan', style: TextStyle(fontSize: 16,color: Colors.white)),
                 ),
               ),
               const SizedBox(height: 16),
@@ -162,7 +196,6 @@ class _PelangganPageState extends State<PelangganPage> {
       text,
       style: const TextStyle(
         fontSize: 16,
-        fontWeight: FontWeight.bold,
       ),
     );
   }

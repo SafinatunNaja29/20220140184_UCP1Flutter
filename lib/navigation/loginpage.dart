@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey.currentState!.validate()) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => HomePage(email: emailController.text)),
       );
     }
   }
@@ -41,13 +41,16 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) { 
     return Scaffold(  
-      body: Form( 
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),  
-          child: Column( 
-            mainAxisAlignment: MainAxisAlignment.center,  
-            children: [
+      body: SafeArea( 
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+              key: _formKey,
+              autovalidateMode: _autoValidateMode,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
               const SizedBox(height: 50),
 
               Image.asset(
@@ -58,11 +61,14 @@ class _LoginPageState extends State<LoginPage> {
 
               const Text(
                 'SELAMAT DATANG KEMBALI',
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 23,
                   fontWeight: FontWeight.bold,
+
                 ),
               ),
+              const SizedBox(height: 15),
 
               const Align(
                 alignment: Alignment.centerLeft,
@@ -177,6 +183,8 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
         ),
+      ),
+    ),
       ),
     );
   }

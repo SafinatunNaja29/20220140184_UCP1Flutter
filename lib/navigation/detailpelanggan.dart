@@ -23,10 +23,14 @@ class DetailPelangganPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFEF7F5),
+      backgroundColor:Colors.white,
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Detail $namaCust'),
+        title: const Text(
+          'Data Pelanggan',
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
@@ -39,7 +43,7 @@ class DetailPelangganPage extends StatelessWidget {
             const SizedBox(height: 20),
             const CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage('assets/images/profile.png'), // Gambar profile
+              backgroundImage: AssetImage('assets/image/profile.jpg'), 
             ),
             const SizedBox(height: 20),
             Text(
@@ -49,21 +53,46 @@ class DetailPelangganPage extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               emailCust,
-              style: const TextStyle(fontSize: 16, color: Colors.grey),
+              style: const TextStyle(fontSize: 16, color: Colors.black),
             ),
             const SizedBox(height: 2),
             Text(
               noHpCust,
-              style: const TextStyle(fontSize: 16, color: Colors.grey),
+              style: const TextStyle(fontSize: 16, color: Colors.black),
             ),
             const SizedBox(height: 20),
-            _buildReadonlyTextField('Alamat', alamatCust, maxLines: 3),
-            const SizedBox(height: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildLabel('Alamat'),
+                const SizedBox(height: 4),
+                _buildReadonlyTextField(alamatCust),
+              ],
+            ),
+
+            const SizedBox(height: 12),
+
             Row(
               children: [
-                Expanded(child: _buildReadonlyTextField('Provinsi', provinsiCust)),
-                const SizedBox(width: 10),
-                Expanded(child: _buildReadonlyTextField('Kode Pos', kodePosCust)),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildLabel('Provinsi'),
+                      _buildReadonlyTextField(provinsiCust),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildLabel('Kode Pos'),
+                      _buildReadonlyTextField(kodePosCust),
+                    ],
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 30),
@@ -81,7 +110,7 @@ class DetailPelangganPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.popUntil(context, (route) => route.isFirst);
                 },
-                child: const Text('Selesai', style: TextStyle(fontSize: 16)),
+                child: const Text('Selesai', style: TextStyle(fontSize: 16,color: Colors.white)),
               ),
             ),
           ],
@@ -90,15 +119,29 @@ class DetailPelangganPage extends StatelessWidget {
     );
   }
 
-   Widget _buildReadonlyTextField(String label, String value, {int maxLines = 1}) {
+  Widget _buildLabel(String text) {
+    return Text(
+      text,
+      style: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+   Widget _buildReadonlyTextField(String value, {int maxLines = 1}) {
     return TextField(
       controller: TextEditingController(text: value),
       readOnly: true,
       maxLines: maxLines,
       decoration: InputDecoration(
-        labelText: label,
         filled: true,
         fillColor: Colors.white,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: Colors.grey),
+        ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(color: Colors.grey),

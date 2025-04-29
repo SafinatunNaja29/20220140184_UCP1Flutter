@@ -4,7 +4,9 @@ import 'package:ucp1/navigation/pelangganpage.dart';
 import 'package:ucp1/navigation/pendataanpage.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final String email;
+
+  const HomePage({super.key, required this.email});
 
   @override
   State<HomePage> createState() => _HomepageState();
@@ -33,13 +35,13 @@ class _HomepageState extends State<HomePage> {
                       const SizedBox(width: 12),
                        Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             'Selamat Datang',
                             style: TextStyle(fontSize: 16, color: Colors.black),
                           ),
                           Text(
-                            'Admin',
+                            widget.email, 
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -66,7 +68,7 @@ class _HomepageState extends State<HomePage> {
                   'assets/image/promo.png', 
                   width: double.infinity,
                   fit: BoxFit.cover,
-                  height: 150,
+                  height: 200,
                 ),
               ),
 
@@ -86,7 +88,7 @@ class _HomepageState extends State<HomePage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const PiketPage()),
+                        MaterialPageRoute(builder: (context) => PiketPage(emailUser: widget.email)),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -97,8 +99,8 @@ class _HomepageState extends State<HomePage> {
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.assignment_turned_in, size: 40, color: Colors.white),
+                      children: [
+                        const Icon(Icons.repeat, size: 40, color: Colors.white),
                         SizedBox(height: 10),
                         Text('Data Piket', style: TextStyle(fontSize: 16, color: Colors.white)),
                       ],
@@ -122,40 +124,47 @@ class _HomepageState extends State<HomePage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                        Icon(Icons.group_add, size: 40, color: Colors.white),
+                        Icon(Icons.grid_view_rounded, size: 40, color: Colors.white),
                         SizedBox(height: 10),
                         Text('Data Pelanggan', style: TextStyle(fontSize: 16, color: Colors.white)),
                       ],
                     ),
                   ),
-                  GridTile(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const PendataanBarangPage()),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 75, 139, 241),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(Icons.receipt_long, size: 40, color: Colors.white),
-                          SizedBox(height: 10),
-                          Text('Barang Masuk/Keluar', style: TextStyle(fontSize: 16, color: Colors.white)),
-                        ],
+                ],
+              ),
+
+              const SizedBox(height: 16),
+              Center(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 140,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const PendataanBarangPage()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      backgroundColor: const Color.fromARGB(255, 75, 139, 241),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
                       ),
                     ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        Icon(Icons.receipt_long, size: 40, color: Colors.white),
+                        SizedBox(height: 10),
+                        Text('Barang Masuk/Keluar', style: TextStyle(fontSize: 16, color: Colors.white)),
+                      ],
+                    ),
                   ),
-                ],
-              )
+                ),
+              ),
             ],
-          ),
+          )  
         ),
       ),
     );

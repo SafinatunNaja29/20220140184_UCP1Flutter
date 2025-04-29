@@ -23,7 +23,7 @@ class DetailBarangPage extends StatelessWidget {
     int totalHarga = jumlah * harga;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFEF7F5),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -52,8 +52,9 @@ class DetailBarangPage extends StatelessWidget {
               _buildDetailRow('Jenis Transaksi', jenisTransaksi),
               _buildDetailRow('Jenis Barang', jenisBarang),
               _buildDetailRow('Jumlah Barang', jumlahBarang),
-              _buildDetailRow('Jenis Harga Satuan', 'Rp. $hargaSatuan'),
-              _buildDetailRow('Total Harga', 'Rp. $totalHarga'),
+              _buildDetailRow('Harga Satuan',  hargaSatuan),
+              _buildDetailRow('Total Harga', totalHarga.toString()),
+
               const Spacer(),
               SizedBox(
                 width: double.infinity,

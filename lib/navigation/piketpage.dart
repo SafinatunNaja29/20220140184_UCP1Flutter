@@ -1,23 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:ucp1/navigation/detailpiket.dart';
 
 class PiketPage extends StatefulWidget {
-  const PiketPage({super.key});
+  final String emailUser;
+
+  const PiketPage({super.key, required this.emailUser});
 
   @override
   State<PiketPage> createState() => _PiketPageState();
 }
 
 class _PiketPageState extends State<PiketPage> { 
-  final List<String> _tugasPiketList = ['Menyapu']; 
+  final List<String> _tugasPiketList = []; 
   final TextEditingController _tugasController = TextEditingController();
   DateTime? _selectedDate;
-  String _emailUser = "admin@example.com"; 
+  late String _emailUser;
+  bool _isFieldEmpty = false; 
+  bool _isDateEmpty = false;
+
+  @override
+void initState() {
+  super.initState();
+  _emailUser = widget.emailUser;
+}
+
 
   void _addTugasPiket() {
     if (_tugasController.text.isNotEmpty) {
       setState(() {
         _tugasPiketList.add(_tugasController.text);
         _tugasController.clear();
+        _selectedDate = null;
+        _isFieldEmpty = false;
+        _isDateEmpty = false;
+      });
+    } else {
+       setState(() {
+        _isFieldEmpty = _tugasController.text.isEmpty;
+        _isDateEmpty = _selectedDate == null;
       });
     }
   }
@@ -32,6 +52,7 @@ class _PiketPageState extends State<PiketPage> {
     if (picked != null) {
       setState(() {
         _selectedDate = picked;
+        _isDateEmpty = false;
       });
     }
   }
@@ -44,32 +65,39 @@ class _PiketPageState extends State<PiketPage> {
 
   @override
   Widget build(BuildContext context) {
+    const primaryColor = Color.fromARGB(255, 75, 139, 241);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Piket Gudang'),
+        backgroundColor: primaryColor,
+        centerTitle: true,
+        title: const Text(
+          'Piket Gudang',
+          style: TextStyle(color: Colors.white), 
+        ),
+        iconTheme: const IconThemeData(color: Colors.white), 
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Nama Anggota',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
             const SizedBox(height: 8),
             TextFormField(
               readOnly: true,
-              initialValue: _emailUser,  
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+              initialValue: _emailUser,
+              decoration: InputDecoration(
+                labelText: 'Nama Anggota',
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
               ),
             ),
             const SizedBox(height: 16),
 
-            const Text(
-              'Pilih Tanggal',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: const Text(
+                'Pilih Tanggal',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
             ),
             const SizedBox(height: 8),
             InkWell(
@@ -78,11 +106,11 @@ class _PiketPageState extends State<PiketPage> {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(16),
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.calendar_today, color: Colors.blue),
+                    const Icon(Icons.calendar_month_outlined, color: Colors.grey),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
@@ -95,6 +123,15 @@ class _PiketPageState extends State<PiketPage> {
                 ),
               ),
             ),
+            if (_isDateEmpty) 
+              const Padding(
+                padding: EdgeInsets.only(top: 8.0),
+                child: Text(
+                  'Tanggal tidak boleh kosong',
+                  style: TextStyle(color: Colors.red, fontSize: 12),
+                ),
+              ),
+          
             const SizedBox(height: 24),
 
             const Text(
@@ -107,14 +144,28 @@ class _PiketPageState extends State<PiketPage> {
                 Expanded(
                   child: TextFormField(
                     controller: _tugasController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Masukkan tugas piket',
+                    onChanged: (_) {
+                      if (_isFieldEmpty) {
+                        setState(() {
+                          _isFieldEmpty = false;
+                        });
+                      }
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Tugas Piket',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      errorText: _isFieldEmpty ? 'Tugas tidak boleh kosong' : null,
                     ),
                   ),
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: primaryColor,
+                    foregroundColor: Colors.white,
+                  ),
                   onPressed: _addTugasPiket,
                   child: const Text('Tambah'),
                 ),
@@ -122,16 +173,16 @@ class _PiketPageState extends State<PiketPage> {
             ),
             const SizedBox(height: 24),
 
-            const Text(
-              'Daftar Tugas Piket',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+             const Center(
+              child: Text(
+                'Daftar Tugas Piket',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
             const SizedBox(height: 8),
-            Flexible(
+             Expanded(
               child: _tugasPiketList.isEmpty
-                  ? const Center(
-                      child: Text('Belum ada Data'),
-                    )
+                  ? const Center(child: Text('Belum ada data'))
                   : ListView.builder(
                       itemCount: _tugasPiketList.length,
                       itemBuilder: (context, index) {
@@ -141,12 +192,23 @@ class _PiketPageState extends State<PiketPage> {
                             leading: const Icon(Icons.assignment, color: Colors.blue),
                             title: Text(_tugasPiketList[index]),
                             trailing: const Icon(Icons.chevron_right),
-                            onTap: () {},  // Navigasi bisa diaktifkan kembali setelah pengujian
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailPiketPage(
+                                    tugas: _tugasPiketList[index],
+                                    nama: _emailUser,
+                                    tanggal: _selectedDate ?? DateTime.now(),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         );
                       },
                     ),
-            ),
+             )
           ],
         ),
       ),
