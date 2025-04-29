@@ -40,7 +40,8 @@
 
 ![Screenshot_20250429-234855_Video Player](https://github.com/user-attachments/assets/e404ed89-6e14-40d6-95ba-b76cd22b7bab)
 
-![Screenshot_20250429-234901_Video Player](https://github.com/user-attachments/assets/19d1d43e-d4e1-42b5-8c96-68357830621b)
+![Screenshot_20250430-000747](https://github.com/user-attachments/assets/5c2e3cbe-a617-493e-b7dc-fe24ce5d5b01)
+
 
 https://drive.google.com/file/d/1vqiPFsctroJ0rm5xzANLk5aGGPvrU11J/view?usp=sharing
 # ucp1
